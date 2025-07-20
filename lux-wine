@@ -41,9 +41,9 @@ ipath() {
     done
     _path=($_path)
     [[ -e "${_path[0]}" ]]||return 1
-    if [[ "${_res@A}" == _res=* ]] ;
-        then printf "%s\n" "${_path[@]}"
-        else _res=("${_path[@]}")
+    if [[ -R _res ]]
+        then _res=("${_path[@]}")
+        else printf "%s\n" "${_path[@]}"
     fi
 }
 
