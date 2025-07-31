@@ -108,6 +108,7 @@ make_install() {
             cp -rf "$RSTEAM_DESKF" "$HSTEAM_DESKF"
             sed -i "s|^Exec.*steam.*|Exec='$HBIN_DIR/steam' %U|g" "$HSTEAM_DESKF"
             sed -i "s|^Name=Steam.*|Name=Steam (RunImage LW)|g" "$HSTEAM_DESKF"
+            sed -i '/\[Desktop Entry\]/a StartupWMClass=Steam' "$HSTEAM_DESKF"
             sed -i '/RunOnDiscreteGpu/d;/PrefersNonDefaultGPU/d' "$HSTEAM_DESKF"
             HICNSTM="$HOME_ICONS/steam.png"
             for hi_icon_size in ${HICOLOR_SIZES[@]}

@@ -1,3 +1,13 @@
+# v0.81.1
+
+* Update [lwrun](https://github.com/VHSgunzo/lwrun/releases/tag/continuous) packages
+* Update [GE-Proton](https://github.com/VHSgunzo/ge-proton-lw/releases/tag/v10.10) `v10.10
+* Create [dgvoodoo2](https://github.com/dege-diosg/dgVoodoo2) releases [repo](https://github.com/VHSgunzo/dgVoodoo2)
+* Add the `lwrun` container unmount mode for `30 minutes` of inactivity
+* Add `StartupWMClass=Steam` to Steam LW `.desktop` file
+* Add `NTsync` option to `Settings`
+* Minor fixes
+
 # v0.80.8
 
 * Update [lwrun](https://github.com/VHSgunzo/lwrun/releases/tag/continuous) packages

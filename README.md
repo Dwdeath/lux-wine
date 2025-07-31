@@ -166,6 +166,7 @@ runimage-lw discord
 - [x] [controllermap](https://aur.archlinux.org/packages/controllermap)
 - [x] Esync
 - [x] Fsync (if linux kernel support)
+- [x] NTsync (if linux kernel support)
 - [x] Vsync settings
 - [x] [AMD FidelityFX Super Resolution settings (if Wine support)](https://github.com/GloriousEggroll/proton-ge-custom/releases/tag/GE-Proton7-24)
 - [x] BattleEye runtime (if Wine support)

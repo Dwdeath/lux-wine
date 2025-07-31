@@ -70,7 +70,7 @@ post_upgrade() {
         then sed -i 's| nocap||' /usr/lib/steam/steam
     fi
 
-    sed -i 's|URUNTIME_MOUNT=[0-9]|URUNTIME_MOUNT=0|' /var/RunDir/sharun/bin/uruntime
+    sed -i 's|URUNTIME_MOUNT=[0-9]|URUNTIME_MOUNT=2|' /var/RunDir/sharun/bin/uruntime
     echo RIM_CMPRS_BSIZE=18 >> "$RIMENVFL"
 
     return 0

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export LW_VERSION="0.80.8"
+export LW_VERSION="0.81.1"
 export LW_DEVELOPERS="VHSgunzo"
 
 export RED='\033[1;91m'
@@ -172,6 +172,7 @@ check_def_config() {
     [ ! -n "$WTRX_LOG" ] && export WTRX_LOG="$WINEPREFIX/winetricks.log"
     [ ! -n "$VKICDFILES" ] && export VKICDFILES="AUTO"
     [ ! -n "$FSYNC" ] && export FSYNC=1
+    [ ! -n "$NTSYNC" ] && export NTSYNC=1
     [ ! -n "$FSR_MODE" ] && export FSR_MODE='Enabled'
     [ ! -n "$VSYNC" ] && export VSYNC="Default"
     [ ! -n "$VKBASALT" ] && export VKBASALT=1
@@ -202,7 +203,7 @@ check_def_config() {
     export VKD3D_GIT_RELEASE_URL="https://api.github.com/repos/HansKristian-Work/vkd3d-proton/releases"
     export NVAPI_GIT_RELEASE_URL="https://api.github.com/repos/jp7677/dxvk-nvapi/releases"
     export D3D_GIT_RELEASE_URL="https://api.github.com/repos/lutris/d3d_extras/releases"
-    export DGVO_GIT_RELEASE_URL="https://api.github.com/repos/lutris/dgvoodoo2/releases"
+    export DGVO_GIT_RELEASE_URL="https://api.github.com/repos/VHSgunzo/dgVoodoo2/releases"
     export BUILD_GIT_RELEASE_URL="https://api.github.com/repos/lutris/buildbot/releases"
     export NVML_GIT_RELEASE_URL="https://api.github.com/repos/VHSgunzo/nvml/releases"
     [ ! -n "$DXVK_VERSION" ] && export DXVK_VERSION="latest"
@@ -1718,7 +1719,7 @@ lu_debug() {
                 "VKBASALT_EFFECTS" "WINE_MONO_OVERRIDES" "EXE_PATH" "LU_EXE" "VKD3D_CONFIG" "LD_LIBRARY_PATH" "PATH" "WINEDEBUG" "CPU_LIMIT" "VSYNC" \
                 "VKD3D_DEBUG" "WINE_MONO_TRACE" "VKBASALT_LOG_LEVEL" "DXVK_LOG_LEVEL" "PULSE_LATENCY_MSEC" "VIRTUAL_DESKTOP" "FPS_LIMIT" "LW_CENV" \
                 "LW_DIR" "LW_CFG" "GSTREAMER" "HIDE_NVIDIA_GPU" "EXE_LWDB" "EXE_LWDBFL" "GST_PLUGIN_SYSTEM_PATH_1_0" "WINE_GST_REGISTRY_DIR" "RUNSRC" "RUNROOTFS_VERSION" \
-                "WINE_SANDBOX" "WINEFSYNC" "WINEFSYNC_FUTEX2" "WINE_FULLSCREEN_FSR" "WINE_FULLSCREEN_FSR_STRENGTH" "STAGING_SHARED_MEMORY" "WINEESYNC" "VKBASALT_LOG_FILE" \
+                "WINE_SANDBOX" "WINEFSYNC" "WINENTSYNC" "WINEFSYNC_FUTEX2" "WINE_FULLSCREEN_FSR" "WINE_FULLSCREEN_FSR_STRENGTH" "STAGING_SHARED_MEMORY" "WINEESYNC" "VKBASALT_LOG_FILE" \
                 "LOG_FILE" "WINE_LARGE_ADDRESS_AWARE" "TERM_APP" "VKBASALT" "DXVK_NVAPIHACK" "MANGOHUD" "MANGOHUD_USER_CONF" "RUN_GAMEMODE" "VKD3D_LOG_FILE" \
                 "VKBASALT_CONFIG_FILE" "VK_ICD_FILENAMES" "__GL_THREADED_OPTIMIZATIONS" "DXVK_STATE_CACHE_PATH" "__GLX_VENDOR_LIBRARY_NAME" "__NV_PRIME_RENDER_OFFLOAD" \
                 "WINE_FULLSCREEN_FSR_MODE" "DXVK_STATE_CACHE" "__GL_DXVK_OPTIMIZATIONS" "__GL_SHADER_DISK_CACHE_PATH" "__GL_SHADER_DISK_CACHE" "__GL_SHADER_DISK_CACHE_SIZE" \
@@ -2785,6 +2786,7 @@ lite_init() {
             check_exe_args
             check_esync
             check_fsync
+            check_ntsync
             check_first_run "$@"
     fi
 }
@@ -2938,7 +2940,7 @@ lu_config() {
     lwconfig_save() {
         LWCFGVAR="WINE_VERSION WIN_VER WINEARCH WINEPREFIX WINE_THEME WDLLOVER WMONOVER WD3DMODE DISABLE_NVAPI WINE_DXGI D3D_EXTRAS DGVOODOO2 \
             DXVK_VERSION VKD3D_VERSION DXVK_NVAPI_VERSION D3D_EXTRAS_VERSION DGVOODOO2_VERSION WINE_NVML_VERSION VKD3DCFG MUST_HAVE_DLL \
-            FSR_MODE WINE_SANDBOX ESYNC FSYNC GSTREAMER SHOW_WINEDBG LARGE_ADDRESS OLD_GL_STRING \
+            FSR_MODE WINE_SANDBOX ESYNC FSYNC NTSYNC GSTREAMER SHOW_WINEDBG LARGE_ADDRESS OLD_GL_STRING \
             NO_WRITE_WATCH HIDE_NVIDIA_GPU HEAP_DELAY_FREE SHARED_MEMORY ALLOW_XIM DIS_LAYER_AMD DIS_NETCORE \
             VIRTUAL_DESKTOP BATTLEYE EAC DXVKASYNC RESIZABLE_BAR LATENCYFLEX DXR EXEARGS CHK_UPDATE EXE_LWDB EXE_LWDBFL \
             LOADBAR LOADBARGIF CHKSTEAMAPPS LW_STEAMAPPS_DIR CHECK_LW_APPS LOG DEBUG SYS_WINETRICKS CPU_LIMIT CMPRSS_METHOD ZSTD_CMPRSS_LVL \
@@ -3048,6 +3050,7 @@ lu_config() {
             --field="Wine prefix sandbox:CHK" "$WINE_SANDBOX" \
             --field="Esync:CHK" "$ESYNC" \
             --field="Fsync:CHK" "$FSYNC" \
+            --field="NTsync:CHK" "$NTSYNC" \
             --field="Gstreamer:CHK" "$GSTREAMER" \
             --field="Show crash dialog (WINEDBG):CHK" "$SHOW_WINEDBG" \
             --field="WINE_LARGE_ADDRESS_AWARE:CHK" "$LARGE_ADDRESS" \
@@ -5707,6 +5710,14 @@ check_fsync() {
     fi
 }
 
+check_ntsync() {
+    [ -n "$1" ] && export NTSYNC="$1"
+    if [ "$NTSYNC" == 1 ]
+        then export WINENTSYNC=1
+        else unset WINENTSYNC
+    fi
+}
+
 check_vsync() {
     [ -n "$1" ] && export VSYNC="$1"
     case "$VSYNC" in
@@ -6363,7 +6374,7 @@ export_all_functions() {
         lu_killtray lu_killwine lu_killexe lu_clearpfx lu_rmapp lu_shortcut lu_explorer lu_help lu_version lu_tray lu_winemgr updcfgchksum lite_init \
         us_layout_sw check_mangohud check_vkcapture check_wd3dmode check_gamemode check_gstreamer check_dxvk check_vkd3d check_dxvk-nvapi check_d3d_extras check_dgvoodoo2 \
         check_battleye check_winepfx check_vulkan_icd check_crash_dialog lu_update check_fps_limit lu_config full_init upd_winetricks check_shell unpack_squash \
-        check_nvprime check_esync check_fsync check_fsr check_path check_terminal check_pulse_latency check_ld_library check_wdllover try_rm_broken_link \
+        check_nvprime check_esync check_fsync check_ntsync check_fsr check_path check_terminal check_pulse_latency check_ld_library check_wdllover try_rm_broken_link \
         check_reset_pulse export_all_functions check_win_version check_hold_terminal dll_manager check_dll_symlink try_ln check_git_release cleanrun \
         runtime_manager upd_battleye is_exe_exist which_exe try_ln_wine_build_dll find_vk_icd btntls_run get_app_exe check_driprime greptardlurl get_wlu_releases \
         upd_d3d_extras upd_dgvoodoo2 upd_dxvk upd_dxvk_nvapi upd_vkd3d upd_all is_loadbar lu_runapp lu_lsapp set_wine_version get_pge_releases get_wge_releases \
