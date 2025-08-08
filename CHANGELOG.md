@@ -1,3 +1,10 @@
+# v0.81.2
+
+* Update [lwrun](https://github.com/VHSgunzo/lwrun/releases/tag/continuous) packages
+* Fix the request to delete broken shortcuts when launching another apps
+* Update [lw-runtime](https://github.com/VHSgunzo/lw-runtime/releases/tag/v0.0.5) `v0.0.5`
+* Minor fixes
+
 # v0.81.1
 
 * Update [lwrun](https://github.com/VHSgunzo/lwrun/releases/tag/continuous) packages

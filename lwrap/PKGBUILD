@@ -1,7 +1,7 @@
 # Maintainer: VHSgunzo <vhsgunzo.github.io>
 
 pkgname='lwrap'
-pkgver='0.81.1'
+pkgver='0.81.2'
 pkgrel='1'
 pkgdesc='Lux Wine wrapper for RunImage container'
 arch=('x86_64')
@@ -19,7 +19,7 @@ depends=(
     'alsa-plugins' 'lib32-alsa-plugins' 'alsa-lib' 'lib32-alsa-lib' 'wine-prefix' 'wget' 'lw-tray'
     'libjpeg-turbo' 'lib32-libjpeg-turbo' 'sqlite' 'lib32-sqlite' 'libxcomposite' 'alsa-utils' 'lib32-libde265'
     'lib32-libxcomposite' 'libxinerama' 'lib32-libgcrypt' 'libgcrypt' 'mousepad' 'btop' 'vulkan-swrast'
-    'lib32-libxinerama' 'ncurses' 'lib32-ncurses' 'spacefm' 'nvtop' 'libxslt' 'lib32-libxslt' 'lib32-faudio'
+    'lib32-libxinerama' 'ncurses' 'lib32-ncurses' 'spacefm-bin' 'nvtop' 'libxslt' 'lib32-libxslt' 'lib32-faudio'
     'gtk3' 'lib32-gtk3' 'lib32-vulkan-icd-loader' 'vulkan-headers' 'vulkan-icd-loader' 'libva' 'libde265'
     'vulkan-tools' 'mesa' 'lib32-glu' 'glu' 'lib32-libva-mesa-driver' 'lib32-mesa' 'lib32-libva'
     'libva-mesa-driver' 'mesa-demos' 'mesa-utils' 'mesa-vdpau' 'vulkan-mesa-layers' 'steam-runtime-libs'
@@ -32,7 +32,7 @@ depends=(
     'lib32-vulkan-intel' 'vulkan-radeon' 'lib32-vulkan-radeon' 'lib32-libxnvctrl' 'libxnvctrl'
     'dos2unix' 'lw-runtime' 'wine-gecko' 'wine-mono' 'libdvdread' 'a52dec' 'wavpack' 'lib32-wavpack'
     'libmpeg2' 'twolame' 'lib32-twolame' 'gst-plugin-msdk' 'lib32-libdv' 'libdv' 'GE-Proton'
-    'xxd-standalone' 'obs-vkcapture-lw' 'lib32-obs-vkcapture-lw' 'egl-wayland' 'gstreamer-vaapi'
+    'tinyxxd' 'obs-vkcapture-lw' 'lib32-obs-vkcapture-lw' 'egl-wayland' 'gstreamer-vaapi'
     'moninfo' 'perl-image-exiftool' 'xorg-xlsfonts' 'firefox' 'controllermap' 'libayatana-appindicator'
     'vulkan-nouveau' 'lib32-vulkan-nouveau' 'lib32-gstreamer' 'frei0r-plugins' 'zenity-gtk3'
 )
